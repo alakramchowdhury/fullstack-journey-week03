@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+  DAY 21 · review/filter-task.html · The 30-minute task: a filterable list
+  ============================================================
+  Build it from scratch in filter-task-starter.js (the data is already there):
+    1. Render every resource as a card (title, level, minutes).
+    2. The search box filters by title as you type (ignore upper/lower case).
+    3. The level select filters by level ("all" shows everything).
+    4. Show "N of 12 resources" and a message when nothing matches.
+  filter-task-solution.html shows one finished version. Open with Live Server.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 21 · Filterable list</title>
+    <link rel="stylesheet" href="filter-task.css">
+  </head>
+  <body>
+    <main>
+      <h1>Free learning resources</h1>
+      <div class="controls">
+        <label for="search">Search</label>
+        <input type="search" id="search" placeholder="e.g. array" autocomplete="off">
+        <label for="level">Level</label>
+        <select id="level">
+          <option value="all">All levels</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+        </select>
+      </div>
+      <p class="summary" id="summary" aria-live="polite"></p>
+      <ul class="cards" id="cards"></ul>
+      <p class="empty" id="empty" hidden>No resources match. Try another word or level.</p>
+    </main>
+    <script src="filter-task-starter.js" defer></script>
+  </body>
+</html>

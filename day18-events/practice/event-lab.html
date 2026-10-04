@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+  DAY 18 · practice/event-lab.html · See events travel
+  ============================================================
+  1. Bubbling: click the inner box and watch the event travel up to its parents.
+     Each line shows event.target (what you clicked) and event.currentTarget
+     (whose listener is running right now).
+  2. Keys: press any key in the box and see event.key and event.code.
+  3. preventDefault: a link that doesn't navigate and a form that doesn't reload.
+  Script: event-lab.js. Open with Live Server.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 18 · Event lab</title>
+    <style>
+      body { margin: 0; padding: 2rem 1rem; font-family: system-ui, Arial, sans-serif; line-height: 1.6; color: #1b2330; background: #f4f6f8; }
+      main { display: grid; gap: 1rem; max-width: 44rem; margin: 0 auto; }
+      section { padding: 1.25rem; border: 1px solid #dde2e8; border-radius: 0.75rem; background: #fff; }
+      h1 { margin: 0; } h2 { margin: 0 0 0.75rem; font-size: 1.1rem; }
+      .box { padding: 1rem; border: 2px dashed; border-radius: 0.75rem; cursor: pointer; }
+      #outer { border-color: #2563eb; background: #eaf1fe; }
+      #middle { border-color: #b7791f; background: #fbf3e2; }
+      #inner { border-color: #1f7a55; background: #eaf3ee; text-align: center; font-weight: 700; }
+      .log { min-height: 5rem; margin: 0.75rem 0 0; padding: 0.6rem 0.8rem; border-radius: 0.5rem; font: 0.85rem/1.6 Consolas, monospace; color: #e6edf3; background: #1b2330; white-space: pre-wrap; }
+      input, button { font: inherit; }
+      input { padding: 0.4rem 0.6rem; border: 1px solid #b8c0cc; border-radius: 0.4rem; }
+      button { padding: 0.4rem 1rem; border: 0; border-radius: 999px; font-weight: 700; color: #fff; background: #1f7a55; cursor: pointer; }
+      .row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Day 18 · Event lab</h1>
+
+      <section>
+        <h2>1. Bubbling, target and currentTarget</h2>
+        <div class="box" id="outer">outer
+          <div class="box" id="middle">middle
+            <div class="box" id="inner">inner: click me</div>
+          </div>
+        </div>
+        <label class="row"><input type="checkbox" id="stop-middle"> Call stopPropagation() in the middle box</label>
+        <pre class="log" id="bubble-log"></pre>
+      </section>
+
+      <section>
+        <h2>2. Keyboard events</h2>
+        <label for="key-box">Click here and press keys:</label>
+        <input id="key-box" placeholder="Try a, A, Enter, Escape, ArrowLeft…">
+        <pre class="log" id="key-log"></pre>
+      </section>
+
+      <section>
+        <h2>3. preventDefault()</h2>
+        <p><a href="https://example.com" id="stay-link">This link would normally leave the page</a></p>
+        <form class="row" id="demo-form">
+          <label for="demo-name">Name</label>
+          <input id="demo-name" name="name" value="Rahim">
+          <button type="submit">Submit</button>
+        </form>
+        <pre class="log" id="default-log"></pre>
+      </section>
+    </main>
+    <script src="event-lab.js" defer></script>
+  </body>
+</html>

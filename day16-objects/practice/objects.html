@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+  DAY 16 · practice/objects.html · Runs objects-demo.js
+  ============================================================
+  Open with Live Server. Every console.log line appears below AND in the Console (F12).
+  Save the .js file and the page reloads with the new results.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 16 · Objects, destructuring and JSON</title>
+    <style>
+      body { margin: 0; padding: 2rem 1rem; font-family: system-ui, Arial, sans-serif; line-height: 1.5; color: #1b2330; background: #f4f6f8; }
+      main { max-width: 52rem; margin: 0 auto; }
+      h1 { margin: 0 0 0.25rem; }
+      .intro { margin: 0 0 1rem; color: #5b6573; }
+      ol { display: grid; gap: 0.3rem; margin: 0; padding: 0; list-style: none; }
+      li { padding: 0.35rem 0.7rem; border-radius: 0.4rem; font: 0.85rem/1.45 Consolas, monospace; background: #fff; overflow-wrap: anywhere; }
+      li.pass { color: #17613f; background: #eaf3ee; }
+      li.fail { color: #b42318; background: #fdf1e7; }
+      li.head { margin-top: 0.6rem; font-weight: 700; color: #5b6573; background: none; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Day 16 · Objects, destructuring and JSON</h1>
+      <p class="intro">Read objects-demo.js part by part and predict each result before you look.</p>
+      <ol id="log"></ol>
+    </main>
+    <script>
+      // Show every console.log line on this page too, so you can see results without DevTools.
+      const logList = document.getElementById('log');
+      const originalLog = console.log;
+      console.log = (...args) => {
+        originalLog(...args);
+        const line = args.map((a) => (typeof a === 'string' ? a : JSON.stringify(a))).join(' ');
+        const item = document.createElement('li');
+        item.textContent = line;
+        if (line.startsWith('PASS')) item.className = 'pass';
+        if (line.startsWith('FAIL')) item.className = 'fail';
+        if (line.startsWith('---')) item.className = 'head';
+        logList.append(item);
+      };
+    </script>
+    <script src="objects-demo.js"></script>
+  </body>
+</html>

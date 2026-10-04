@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+  DAY 17 · practice/dom-playground.html · Five small DOM exercises on one page
+  ============================================================
+  1. Render a list from an array      → createElement, textContent, append
+  2. Dark mode                        → classList.toggle, aria-pressed
+  3. A counter with + and −           → reading and writing textContent, disabled
+  4. textContent vs innerHTML         → why user input must never go into innerHTML
+  5. data-* attributes                → element.dataset
+  The JavaScript is in dom-playground.js. Open this page with Live Server.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 17 · DOM playground</title>
+    <style>
+      body { margin: 0; padding: 2rem 1rem; font-family: system-ui, Arial, sans-serif; line-height: 1.6; color: #1b2330; background: #f4f6f8; }
+      main { display: grid; gap: 1rem; max-width: 44rem; margin: 0 auto; }
+      section { padding: 1.25rem; border: 1px solid #dde2e8; border-radius: 0.75rem; background: #fff; }
+      h1 { margin: 0 0 0.5rem; }
+      h2 { margin: 0 0 0.75rem; font-size: 1.1rem; }
+      button { padding: 0.4rem 1rem; border: 2px solid #1f7a55; border-radius: 999px; font: inherit; font-weight: 700; color: #fff; background: #1f7a55; cursor: pointer; }
+      button:disabled { opacity: 0.4; cursor: not-allowed; }
+      input { padding: 0.4rem 0.6rem; border: 1px solid #b8c0cc; border-radius: 0.4rem; font: inherit; }
+      .row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+      .count { min-width: 3ch; font-size: 2rem; font-weight: 700; text-align: center; }
+      .output { min-height: 1.6em; padding: 0.4rem 0.6rem; border-radius: 0.4rem; background: #f4f6f8; }
+      .topic-list li.is-new { color: #1f7a55; font-weight: 700; }
+      .size-small { font-size: 0.85rem; } .size-medium { font-size: 1rem; } .size-large { font-size: 1.35rem; }
+      /* Dark mode: one class on <body> changes the colours of the whole page */
+      body.dark { color: #e6eaef; background: #0d1117; }
+      body.dark section { border-color: #2d333b; background: #161b22; }
+      body.dark .output { background: #0d1117; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Day 17 · DOM playground</h1>
+
+      <section>
+        <h2>1. Render a list from an array</h2>
+        <ul class="topic-list" id="topic-list"></ul>
+        <form class="row" id="topic-form">
+          <label for="topic-input">New topic</label>
+          <input id="topic-input" autocomplete="off">
+          <button type="submit">Add</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>2. Dark mode</h2>
+        <button type="button" id="theme-button" aria-pressed="false">Dark mode: off</button>
+      </section>
+
+      <section>
+        <h2>3. A counter</h2>
+        <div class="row">
+          <button type="button" id="minus" aria-label="Decrease">−</button>
+          <output class="count" id="count">0</output>
+          <button type="button" id="plus" aria-label="Increase">+</button>
+          <button type="button" id="reset">Reset</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>4. textContent vs innerHTML</h2>
+        <div class="row">
+          <label for="name-input">Type a name</label>
+          <input id="name-input" value="<b>Rahim</b>">
+        </div>
+        <p>With textContent (safe, shows the text exactly):</p>
+        <p class="output" id="safe-output"></p>
+        <p>With innerHTML (the text is turned into HTML):</p>
+        <p class="output" id="html-output"></p>
+      </section>
+
+      <section>
+        <h2>5. data-* attributes</h2>
+        <div class="row" id="size-buttons">
+          <button type="button" data-size="small">Small</button>
+          <button type="button" data-size="medium">Medium</button>
+          <button type="button" data-size="large">Large</button>
+        </div>
+        <p id="size-text" class="size-medium">This paragraph changes size. Each button stores its size in a data-size attribute.</p>
+      </section>
+    </main>
+    <script src="dom-playground.js" defer></script>
+  </body>
+</html>

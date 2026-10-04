@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!--
+  DAY 15 · widgets/index.html · The three widgets: static HTML and CSS
+  ============================================================
+  Today there is NO JavaScript: everything you see is written by hand.
+  The first tab is "selected", the dialog is in the page but closed,
+  and the to-do list shows three sample tasks. From Day 16, JavaScript
+  takes over one widget at a time. Plan: plan.md
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackfield Widgets · Tabs, a modal and a to-do list</title>
+    <meta name="description" content="Three interactive widgets built with plain JavaScript in Week 3 of a full-stack course: tabs, an accessible modal dialog and a to-do list.">
+    <meta name="theme-color" content="#1f7a55">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="#main">
+          <span class="logo-mark" aria-hidden="true">S</span>
+          Stackfield
+        </a>
+        <p class="header-note">Week 3 · UI widgets</p>
+      </div>
+    </header>
+
+    <main id="main" class="container">
+      <section class="intro">
+        <p class="eyebrow">Built with plain JavaScript</p>
+        <h1>Three widgets, built from scratch</h1>
+        <p class="lead">Tabs, a modal dialog and a to-do list: the building blocks of almost every web app. No libraries, just arrays, objects, the DOM and events.</p>
+      </section>
+
+      <!-- ========================= 1. TABS ========================= -->
+      <section class="widget" aria-labelledby="tabs-title">
+        <div class="widget-head">
+          <h2 id="tabs-title"><span class="widget-number">1</span> Tabs</h2>
+          <p>Course tracks, one panel at a time.</p>
+        </div>
+        <!-- Day 15: written by hand. From Day 16 JavaScript builds this from an array of objects.
+             role="tablist" / "tab" / "tabpanel" + aria-selected tell screen readers how the parts fit together. -->
+        <div class="tabs" id="tracks">
+          <div class="tab-list" role="tablist" aria-label="Course tracks">
+            <button class="tab" type="button" role="tab" id="tab-frontend" aria-selected="true" aria-controls="panel-frontend">Frontend</button>
+            <button class="tab" type="button" role="tab" id="tab-backend" aria-selected="false" aria-controls="panel-backend" tabindex="-1">Backend</button>
+            <button class="tab" type="button" role="tab" id="tab-database" aria-selected="false" aria-controls="panel-database" tabindex="-1">Databases</button>
+            <button class="tab" type="button" role="tab" id="tab-deploy" aria-selected="false" aria-controls="panel-deploy" tabindex="-1">Deploy</button>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="panel-frontend" aria-labelledby="tab-frontend" tabindex="0">
+            <p class="panel-meta">Months 1–2</p>
+            <h3>Frontend</h3>
+            <p>Build interfaces people enjoy using, from the first HTML tag to React components.</p>
+            <ul class="topic-list">
+              <li>Semantic HTML and CSS</li>
+              <li>JavaScript and the DOM</li>
+              <li>TypeScript</li>
+              <li>React and Next.js</li>
+            </ul>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="panel-backend" aria-labelledby="tab-backend" tabindex="0" hidden>
+            <p class="panel-meta">Month 3</p>
+            <h3>Backend</h3>
+            <p>Write the server side: APIs that check their input, talk to a database and handle errors.</p>
+            <ul class="topic-list">
+              <li>Node.js and Express</li>
+              <li>REST API design</li>
+              <li>Validation with Zod</li>
+              <li>Error handling</li>
+            </ul>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="panel-database" aria-labelledby="tab-database" tabindex="0" hidden>
+            <p class="panel-meta">Months 3–4</p>
+            <h3>Databases</h3>
+            <p>Store data safely and query it fast with PostgreSQL and Prisma.</p>
+            <ul class="topic-list">
+              <li>Tables and relations</li>
+              <li>SQL joins</li>
+              <li>Indexes</li>
+              <li>Transactions</li>
+            </ul>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="panel-deploy" aria-labelledby="tab-deploy" tabindex="0" hidden>
+            <p class="panel-meta">Months 4–5</p>
+            <h3>Deploy</h3>
+            <p>Ship real software with containers, pipelines and monitoring.</p>
+            <ul class="topic-list">
+              <li>Git workflows</li>
+              <li>Docker</li>
+              <li>CI/CD pipelines</li>
+              <li>Monitoring</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <div class="widget-row">
+        <!-- ========================= 2. MODAL ========================= -->
+        <section class="widget" aria-labelledby="modal-title">
+          <div class="widget-head">
+            <h2 id="modal-title"><span class="widget-number">2</span> Modal dialog</h2>
+            <p>A focused task on top of the page.</p>
+          </div>
+          <div class="call-card">
+            <p>Not sure where to start? Talk to a mentor for 15 minutes, free.</p>
+            <button class="button" type="button" id="open-call">Book a free call</button>
+            <!-- role="status": screen readers announce the confirmation when it appears. -->
+            <p class="form-message" id="call-status" role="status" aria-live="polite"></p>
+          </div>
+
+          <!-- <dialog> is built into HTML. showModal() opens it on top of the page,
+               traps keyboard focus inside and closes it with Escape. -->
+          <dialog class="modal" id="call-dialog" aria-labelledby="call-dialog-title">
+            <form class="modal-body" id="call-form">
+              <div class="modal-head">
+                <h3 id="call-dialog-title">Book a free call</h3>
+                <button class="icon-button" type="button" id="close-call" aria-label="Close">×</button>
+              </div>
+              <p class="modal-text">Pick a day and a mentor will call you in the evening (Dhaka time).</p>
+              <label for="call-name">Your name</label>
+              <!-- pattern=".*\S.*": at least one character that is not a space -->
+              <input id="call-name" name="name" required pattern=".*\S.*" autocomplete="name" autofocus>
+              <label for="call-day">Best day</label>
+              <select id="call-day" name="day">
+                <option>Saturday</option>
+                <option>Sunday</option>
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+              </select>
+              <div class="modal-actions">
+                <button class="button button-ghost" type="button" id="cancel-call">Cancel</button>
+                <button class="button" type="submit">Book the call</button>
+              </div>
+            </form>
+          </dialog>
+        </section>
+
+        <!-- ========================= 3. TO-DO LIST ========================= -->
+        <section class="widget" aria-labelledby="todo-title">
+          <div class="widget-head">
+            <h2 id="todo-title"><span class="widget-number">3</span> To-do list</h2>
+            <p>Your study tasks for the week.</p>
+          </div>
+          <!-- Day 15: three sample tasks written by hand. From Day 19 JavaScript renders the list from an array. -->
+          <form class="todo-form" id="todo-form">
+            <label class="visually-hidden" for="todo-input">New task</label>
+            <input id="todo-input" name="task" placeholder="e.g. Solve Two Sum" autocomplete="off" maxlength="80">
+            <button class="button" type="submit">Add</button>
+          </form>
+          <ul class="todo-list" id="todo-list">
+            <li class="todo-item is-done">
+              <input class="todo-toggle" type="checkbox" id="todo-1" checked>
+              <label class="todo-text" for="todo-1">Read the arrays chapter</label>
+              <button class="icon-button todo-delete" type="button" aria-label="Delete: Read the arrays chapter">×</button>
+            </li>
+            <li class="todo-item">
+              <input class="todo-toggle" type="checkbox" id="todo-2">
+              <label class="todo-text" for="todo-2">Solve Running Sum on LeetCode</label>
+              <button class="icon-button todo-delete" type="button" aria-label="Delete: Solve Running Sum on LeetCode">×</button>
+            </li>
+            <li class="todo-item">
+              <input class="todo-toggle" type="checkbox" id="todo-3">
+              <label class="todo-text" for="todo-3">Style the three widgets</label>
+              <button class="icon-button todo-delete" type="button" aria-label="Delete: Style the three widgets">×</button>
+            </li>
+          </ul>
+          <p class="todo-count" id="todo-count">2 tasks left</p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year">2026</span> Your Name · Week 3 of the full-stack course</p>
+        <p class="footer-note">Stackfield is a fictional bootcamp, built as a practice project.</p>
+      </div>
+    </footer>
+  </body>
+</html>

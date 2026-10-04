@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+  DAY 19 · practice/timers.html · Timers and debouncing you can see
+  ============================================================
+  1. A focus timer: setInterval counts down, clearInterval pauses it.
+  2. A search box: without debounce the filter runs on every key press;
+     with debounce it runs once you stop typing for 300 ms. Watch the counters.
+  Script: timers.js. Open with Live Server.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 19 · Timers and debounce</title>
+    <style>
+      body { margin: 0; padding: 2rem 1rem; font-family: system-ui, Arial, sans-serif; line-height: 1.6; color: #1b2330; background: #f4f6f8; }
+      main { display: grid; gap: 1rem; max-width: 40rem; margin: 0 auto; }
+      section { padding: 1.25rem; border: 1px solid #dde2e8; border-radius: 0.75rem; background: #fff; }
+      h1 { margin: 0; } h2 { margin: 0 0 0.75rem; font-size: 1.1rem; }
+      .clock { margin: 0.25rem 0 0.75rem; font: 700 3rem/1 Consolas, monospace; letter-spacing: 0.05em; }
+      .row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
+      button { padding: 0.4rem 1rem; border: 2px solid #1f7a55; border-radius: 999px; font: inherit; font-weight: 700; color: #fff; background: #1f7a55; cursor: pointer; }
+      button:disabled { opacity: 0.4; cursor: not-allowed; }
+      input[type="search"] { width: 100%; box-sizing: border-box; padding: 0.5rem 0.7rem; border: 1px solid #b8c0cc; border-radius: 0.5rem; font: inherit; }
+      .stats { margin: 0.6rem 0; font-weight: 700; color: #5b6573; }
+      ul { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+      li { padding: 0.15rem 0.7rem; border-radius: 999px; background: #eaf3ee; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Day 19 · Timers and debounce</h1>
+
+      <section>
+        <h2>1. Focus timer (setInterval)</h2>
+        <p class="clock" id="clock" role="timer" aria-live="off">01:00</p>
+        <div class="row">
+          <button type="button" id="start">Start</button>
+          <button type="button" id="pause" disabled>Pause</button>
+          <button type="button" id="reset">Reset</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Debounced search</h2>
+        <label for="search">Filter topics</label>
+        <input type="search" id="search" placeholder="Type quickly, e.g. array" autocomplete="off">
+        <label class="row"><input type="checkbox" id="use-debounce" checked> Use debounce (300 ms)</label>
+        <p class="stats" id="stats">Key presses: 0 · Filters run: 0</p>
+        <ul id="results"></ul>
+      </section>
+    </main>
+    <script src="timers.js" defer></script>
+  </body>
+</html>

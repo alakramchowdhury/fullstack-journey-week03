@@ -1,0 +1,17 @@
+/* DAY 21 · filter-task.css · Styles for the filterable list (ready-made: the task is the JavaScript) */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; padding: 2rem 1rem; font-family: system-ui, Arial, sans-serif; line-height: 1.5; color: #1b2330; background: #f4f6f8; }
+main { max-width: 48rem; margin: 0 auto; }
+h1 { margin: 0 0 1rem; }
+.controls { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 0.75rem; align-items: center; padding: 1rem; border: 1px solid #dde2e8; border-radius: 0.75rem; background: #fff; }
+input, select { width: 100%; padding: 0.45rem 0.6rem; border: 1px solid #b8c0cc; border-radius: 0.4rem; font: inherit; }
+label { font-weight: 700; }
+.summary { margin: 1rem 0 0.5rem; font-weight: 700; color: #5b6573; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+.card { padding: 1rem; border: 1px solid #dde2e8; border-radius: 0.75rem; background: #fff; }
+.card h2 { margin: 0 0 0.4rem; font-size: 1rem; }
+.card p { margin: 0; font-size: 0.9rem; color: #5b6573; }
+.badge { display: inline-block; margin-top: 0.5rem; padding: 0.1rem 0.6rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: #17613f; background: #eaf3ee; }
+.badge.intermediate { color: #8a5710; background: #fbf3e2; }
+.empty { padding: 2rem 1rem; border: 2px dashed #dde2e8; border-radius: 0.75rem; text-align: center; color: #5b6573; }
+@media (min-width: 40rem) { .controls { grid-template-columns: auto 1fr auto 12rem; } }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+  DAY 18 · practice/char-counter.html · A live character counter
+  ============================================================
+  The 'input' event fires on every change to the text (typing, pasting, deleting).
+  The script is in char-counter.js. Open this page with Live Server.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 18 · Character counter</title>
+    <style>
+      body { margin: 0; padding: 2rem 1rem; font-family: system-ui, Arial, sans-serif; line-height: 1.6; color: #1b2330; background: #f4f6f8; }
+      main { max-width: 36rem; margin: 0 auto; padding: 1.5rem; border: 1px solid #dde2e8; border-radius: 0.75rem; background: #fff; }
+      label { display: block; margin-bottom: 0.4rem; font-weight: 700; }
+      textarea { width: 100%; box-sizing: border-box; min-height: 8rem; padding: 0.6rem; border: 1px solid #b8c0cc; border-radius: 0.5rem; font: inherit; }
+      .counter { margin: 0.4rem 0 0; font-weight: 700; color: #5b6573; text-align: right; }
+      .counter.is-near { color: #b7791f; }    /* 20 or fewer characters left */
+      .counter.is-full { color: #b42318; }    /* no characters left */
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Short bio</h1>
+      <label for="bio">Tell mentors about yourself (max 160 characters)</label>
+      <textarea id="bio" maxlength="160" aria-describedby="bio-counter"></textarea>
+      <p class="counter" id="bio-counter" aria-live="polite">0 / 160</p>
+    </main>
+    <script src="char-counter.js" defer></script>
+  </body>
+</html>
